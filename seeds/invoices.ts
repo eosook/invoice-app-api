@@ -31,7 +31,7 @@ export async function seed(knex: Knex): Promise<void> {
     .returning("id");
 
     await knex('invoices').insert({
-      invoiceID: invoice.invoiceID,
+      invoiceID: invoice.invoiceId,
       createdAt: invoice.createdAt,
       paymentDue: invoice.paymentDue,
       description: invoice.description,
@@ -46,7 +46,7 @@ export async function seed(knex: Knex): Promise<void> {
 
     for (const item of invoice.items) {
       await knex('items').insert({
-        invoiceId: invoice.id, 
+        invoiceId: invoice.invoiceId, 
         name: item.name,
         quantity: item.quantity,
         price: item.price,

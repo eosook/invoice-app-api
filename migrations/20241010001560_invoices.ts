@@ -4,7 +4,7 @@ import type { Knex } from "knex";
 export async function up(knex: Knex): Promise<void> {
     return knex.schema.createTable("invoices", (table) => {
         table.increments("id").primary();
-        table.string("invoiceId").notNullable().defaultTo(1);
+        table.string("invoiceId").notNullable().defaultTo("N/A");
         table.string("createdAt").notNullable();
         table.string("paymentDue").notNullable();
         table.string("description").notNullable();
