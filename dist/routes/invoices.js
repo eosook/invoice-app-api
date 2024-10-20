@@ -14,17 +14,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const knex_1 = __importDefault(require("knex"));
-const knexfile_ts_1 = __importDefault(require("../knexfile.js"));
+const knexfile_js_1 = __importDefault(require("../knexfile.js"));
 const router = express_1.default.Router();
-const knex = (0, knex_1.default)(knexfile_ts_1.default);
-router.route("/").get((_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const knex = (0, knex_1.default)(knexfile_js_1.default);
+router.get('/', (_request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const invoiceList = yield knex("invoices");
-        res.json(invoiceList);
-        console.log(res);
+        response.json(invoiceList);
+        console.log(response);
     }
-    catch (_a) {
-        return res.status(500).send("Error getting inventories");
+    catch (error) {
+        return error;
+    }
+}));
+router.get('/:id', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = request.params.id;
+    console.log(id);
+    try {
+        const invoiceInfo = yield knex("invoices").where("id", id);
+        response.json(invoiceInfo);
+    }
+    catch (error) {
+        return error;
     }
 }));
 exports.default = router;

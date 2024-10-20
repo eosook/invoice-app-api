@@ -37,7 +37,7 @@ function seed(knex) {
             })
                 .returning("id");
             yield knex('invoices').insert({
-                invoiceID: invoice.invoiceID,
+                invoiceID: invoice.invoiceId,
                 createdAt: invoice.createdAt,
                 paymentDue: invoice.paymentDue,
                 description: invoice.description,
@@ -51,7 +51,7 @@ function seed(knex) {
             });
             for (const item of invoice.items) {
                 yield knex('items').insert({
-                    invoiceId: invoice.id,
+                    invoiceId: invoice.invoiceId,
                     name: item.name,
                     quantity: item.quantity,
                     price: item.price,

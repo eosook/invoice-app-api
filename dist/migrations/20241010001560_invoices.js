@@ -15,7 +15,7 @@ function up(knex) {
     return __awaiter(this, void 0, void 0, function* () {
         return knex.schema.createTable("invoices", (table) => {
             table.increments("id").primary();
-            table.string("invoiceId").notNullable().defaultTo(1);
+            table.string("invoiceId").notNullable().defaultTo("N/A");
             table.string("createdAt").notNullable();
             table.string("paymentDue").notNullable();
             table.string("description").notNullable();
