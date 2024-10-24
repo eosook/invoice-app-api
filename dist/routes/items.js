@@ -17,28 +17,12 @@ const knex_1 = __importDefault(require("knex"));
 const knexfile_1 = __importDefault(require("../knexfile"));
 const router = express_1.default.Router();
 const knex = (0, knex_1.default)(knexfile_1.default);
-function aliasColumns(tableName, columns) {
-    return columns.map((column) => `${tableName}.${column} as ${tableName}_${column}`);
-}
-const addressColumns = ["street", "city", "postCode", "country"];
-router.get("/", (_request, response) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/:invoiceId", (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    const invoiceId = request.params.invoiceId;
     try {
-        const invoiceList = yield knex("invoices");
-        response.json(invoiceList);
-    }
-    catch (error) {
-        return error;
-    }
-}));
-router.get("/:id", (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = request.params.id;
-    try {
-        const invoiceInfo = yield knex("invoices")
-            .join("senderaddress", "invoices.senderAddress_id", "senderaddress.id")
-            .join("clientaddress", "invoices.clientAddress_id", "clientaddress.id")
-            .where("invoices.invoiceId", id)
-            .select("invoices.*", ...aliasColumns("senderaddress", addressColumns), ...aliasColumns("clientaddress", addressColumns));
-        response.json(invoiceInfo);
+        const items = yield knex("items")
+            .where("items.invoiceId", invoiceId);
+        response.json(items);
     }
     catch (error) {
         return error;
