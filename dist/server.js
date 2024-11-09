@@ -11,6 +11,7 @@ const items_1 = __importDefault(require("./routes/items"));
 const app = express();
 const PORT = process.env.PORT || 8080;
 app.use(cors());
+app.use(express());
 app.use("/invoices", invoices_1.default);
 app.use("/items", items_1.default);
 app.listen(PORT, () => {

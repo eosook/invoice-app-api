@@ -6,12 +6,12 @@ import Router = require("express");
 const router = express.Router();
 const knex = initKnex(config);
 
-router.get("/:invoiceId", async (request: Request, response: Response) => {
-    const invoiceId = request.params.invoiceId;
+router.get("/:invoiceId", async (req: Request, res: Response) => {
+    const invoiceId = req.params.invoiceId;
     try{
         const items = await knex("items")
             .where("items.invoiceId", invoiceId)
-        response.json(items);
+        res.json(items);
     } catch(error:any) {
         return error;
     }

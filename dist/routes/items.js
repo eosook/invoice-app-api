@@ -17,12 +17,12 @@ const knex_1 = __importDefault(require("knex"));
 const knexfile_1 = __importDefault(require("../knexfile"));
 const router = express_1.default.Router();
 const knex = (0, knex_1.default)(knexfile_1.default);
-router.get("/:invoiceId", (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-    const invoiceId = request.params.invoiceId;
+router.get("/:invoiceId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const invoiceId = req.params.invoiceId;
     try {
         const items = yield knex("items")
             .where("items.invoiceId", invoiceId);
-        response.json(items);
+        res.json(items);
     }
     catch (error) {
         return error;
